@@ -3,7 +3,7 @@ import quandl
 import math
 import config
 
-quandl.ApiConfig.api_key = config.quandle_api_key
+quandl.ApiConfig.api_key = config.quandl_api_key
 
 df = quandl.get('WIKI/GOOGL')
 df = df[['Adj. Open','Adj. High','Adj. Low','Adj. Close','Adj. Volume',]]
@@ -15,7 +15,7 @@ df = df[['Adj. Close','HL_percent','percent_change','Adj. Volume']]
 forecast_column = 'Adj. Close'
 df.fillna(-99999, inplace=True)
 
-forecast_out = int(math.ceil(0.1*len(df)))
+forecast_out = int(math.ceil(0.01*len(df)))
 
 df['label'] = df[forecast_column].shift(-forecast_out)
 
