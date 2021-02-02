@@ -8,6 +8,7 @@ from sklearn import preprocessing, model_selection, svm
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 from matplotlib import style
+import pickle
 
 style.use('ggplot')
 
@@ -36,25 +37,27 @@ X = X[:-forecast_out]
 
 df.dropna(inplace=True)
 y = np.array(df['label'])
-y = np.array(df['label'])
 
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.2)
 
-clf = LinearRegression() #01.02.2021: output = 35 days forecast_out; accuracy = 0.9771849294187718
+#clf = LinearRegression() #01.02.2021: output = 35 days forecast_out; accuracy = 0.9771849294187718
                          #note: LinearRegression(n_jobs=-1 denotes max. threading)
 #clf = svm.SVR() #01.02.2021: output = 35 days forecast_out; accuracy = 0.7985706014191183
 #clf = svm.SVR(kernel='poly') #01.02.2021: output = 35d forecast_out; accuracy = 0.35345142164613286
 #fit = train; score = test
 
-clf.fit(X_train, y_train)
+#clf.fit(X_train, y_train)
+#with open('LinearRegression.pickle', 'wb') as a:
+#    pickle.dump(clf, a)
+
+pickle_in = open('LinearRegression.pickle', 'rb')
+clf = pickle.load(pickle_in)
+
 accuracy = clf.score(X_test, y_test)
 
 print(accuracy)
-
 forecast_set = clf.predict(X_lately)
-
 print(forecast_set, accuracy, forecast_out)
-
 df['Forecast'] = np.nan
 
 last_date = df.iloc[-1].name
