@@ -9,7 +9,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import style
 
-style.use('fivethirtyeight')
+style.use('dark_background')
+np.set_printoptions(precision = 2)
 
 
 from statistics import mean
@@ -28,16 +29,41 @@ def line_of_best_fit(x,y):
 
 def y_intercept(x,y):
     b = ((np.mean(y)) - (m*np.mean(x)))
+    return b
+
+def square_error(y_points, y_line):
+    return sum((y_line - y_points)**2)
+
+    #r**2 = 1 - ((SE*np.mean(y - regression line)) /
+    #            (SE*np.mean(y - mean line))
+
+def coefficient_of_determination(y_points, y_line):
+    y_mean_line = [mean(y_points) for y in y_points]
+    square_error_regression_line = square_error(y_points, y_line)
+    square_error_y_mean = square_error(y_points, y_mean_line)
+    return 1 - (square_error_regression_line / square_error_y_mean)
+
 
 m = line_of_best_fit(x,y)
 b = y_intercept(x,y)
 
-line = m*x + b
+line = (m*x)+ b
+
+predict_x = 50
+predict_y = (m*predict_x) + b
+
+r_squared = coefficient_of_determination(y, line)
+print(r_squared)
+# 0.6737903126614351
+
+print(m,b)
+# 0.2402031930333817 2.663280116110305
 
 
-print(m)
-print(b)
-
+plt.title("y = mx + b")
+plt.xlabel("x")
+plt.ylabel("y")
 plt.scatter(x,y)
+plt.scatter(predict_x, predict_y, color='r')
 plt.plot(x, line)
 plt.show()
