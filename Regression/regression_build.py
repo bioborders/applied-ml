@@ -8,8 +8,9 @@ from statistics import mean
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import style
+import random
 
-style.use('dark_background')
+style.use('seaborn-dark-palette')
 np.set_printoptions(precision = 2)
 
 
@@ -17,8 +18,22 @@ from statistics import mean
 import numpy as np
 import  matplotlib.pyplot as plt
 
-x = np.array([4, 6, 17, 22, 25, 26], dtype=np.float64)
-y = np.array([3, 6, 4, 8, 9, 10], dtype=np.float64)
+#x = np.array([4, 6, 17, 22, 25, 26], dtype=np.float64)
+#y = np.array([3, 6, 4, 8, 9, 10], dtype=np.float64)
+
+def create_dataseet(number_data_points, variance, step=2, correlation=False):
+    val = 1
+    y = []
+    for i in range(number_data_points):
+        y_val = val + random.randrange(-variance, variance)
+        y.append(y_val)
+        if correlation and correlation == 'pos':
+            val += step
+        elif correlation and correlation == 'neg':
+            val -= step
+        x = [i for i in range(len(y))]
+
+    return np.array(x, dtype=np.float64), np.array(y, dtype=np.float64)
 
 
 def line_of_best_fit(x,y):
@@ -44,26 +59,24 @@ def coefficient_of_determination(y_points, y_line):
     return 1 - (square_error_regression_line / square_error_y_mean)
 
 
+x, y = create_dataseet(50, 40, 2, correlation='pos')
 m = line_of_best_fit(x,y)
 b = y_intercept(x,y)
 
 line = (m*x)+ b
-
-predict_x = 50
+predict_x = 60
 predict_y = (m*predict_x) + b
 
 r_squared = coefficient_of_determination(y, line)
-print(r_squared)
-# 0.6737903126614351
 
+print(r_squared)
 print(m,b)
-# 0.2402031930333817 2.663280116110305
 
 
 plt.title("y = mx + b")
 plt.xlabel("x")
 plt.ylabel("y")
 plt.scatter(x,y)
-plt.scatter(predict_x, predict_y, color='r')
+plt.scatter(predict_x, predict_y, s=100, color='r')
 plt.plot(x, line)
 plt.show()

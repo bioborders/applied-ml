@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from matplotlib import style
 import pickle
 
-style.use('ggplot')
+style.use('seaborn-dark-palette')
 
 quandl.ApiConfig.api_key = config.quandl_api_key
 
@@ -20,12 +20,13 @@ df = df[['Adj. Open','Adj. High','Adj. Low','Adj. Close','Adj. Volume',]]
 df['HL_percent'] = (df['Adj. High'] - df['Adj. Close']) / df['Adj. Close'] * 100
 df['percent_change'] = (df['Adj. Close'] - df['Adj. Open']) / df['Adj. Open'] * 100
 
+
 df = df[['Adj. Close','HL_percent','percent_change','Adj. Volume']]
 
 forecast_column = 'Adj. Close'
 df.fillna(-99999, inplace=True)
 
-forecast_out = int(math.ceil(0.01*len(df)))
+forecast_out = int(math.ceil(0.1*len(df)))
 print(forecast_out)
 
 df['label'] = df[forecast_column].shift(-forecast_out)
