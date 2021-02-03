@@ -1,0 +1,16 @@
+
+sklearn_kNN.py
+k=5 by default
+Accuracy for 100 runs:
+
+0.9707070707070705
+[Finished in 3.509s]
+
+#########################
+
+self-made-kNN -> kNN2.py
+Accuracy for 100 runs:
+
+k=5
+0.9686796017731263
+[Finished in 77.32s]
