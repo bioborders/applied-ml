@@ -1,6 +1,8 @@
-# Using K Nearest Neighbours to classify the class of unlabelled data;
+# Using sklearn's K Nearest Neighbours to classify the class of unlabelled data;
 # where a model has been trained on labelled data
 # note: if k = 3 (odd): examine three closest points using euclidian distances
+
+# note: for my own kNN classifier, see kNN2.py in this repo
 
 # here we use the UCI repository: (https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Original%29)
 # => Wisconsin Breast Cancer Database (1991) from Dr William H. Wolberg
