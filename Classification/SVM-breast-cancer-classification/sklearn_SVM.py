@@ -1,23 +1,15 @@
-# Using sklearn's K Nearest Neighbours to classify the class of unlabelled data;
-# where a model has been trained on labelled data
-# note: if k = 3 (odd): examine three closest points using euclidian distances
-
-# note: for my own kNN classifier, see kNN2.py in this repo
-
 # here we use the UCI repository: (https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Original%29)
 # => Wisconsin Breast Cancer Database (1991) from Dr William H. Wolberg
 
 import numpy as np
-from sklearn import preprocessing, model_selection, neighbors
-# note: cross_validation sub-module now = model_selection
+from sklearn import preprocessing, model_selection, neighbors, svm
 import pandas as pd
 
 accuracies = []
+runs = 99
 
-for i in range(99): # 100 runs
-
-    # load dataset
-    df = pd.read_csv('kNN-breast-cancer-wisconsin/breast-cancer-wisconsin.data')
+for i in range(runs):
+    df = pd.read_csv('kNN-breast-cancer-classification/breast-cancer-wisconsin.data')
     df.replace('?', -99999, inplace=True) #replace missing data attributes
     df.drop('id', 1, inplace=True) #drop id column
 
@@ -26,23 +18,23 @@ for i in range(99): # 100 runs
     y = np.array(df['class'])
 
     X_train, X_test, y_train, y_test = model_selection.train_test_split(X,y,test_size=0.2)
-    clf = neighbors.KNeighborsClassifier()
+    clf = svm.SVC(kernel = "linear") # kernel trick solves non-linearity problem
     clf.fit(X_train, y_train)
 
     accuracy = clf.score(X_test, y_test)
     #print(accuracy)
 
-    #using sklearn kNN -> 0.9785714285714285 accuracy
-
     #example_measures = np.array([[6, 8, 1, 3, 2, 1, 2, 3, 1]])
     #example_measures = example_measures.reshape(len(example_measures), -1)
 
-    # prediction = clf.predict(example_measures)
-    # if prediction == 2:
-    #     print("Benign")
-    # else:
-    #     print("Malignant")
+    #prediction = clf.predict(example_measures)
+    # print(prediction)
+    #if prediction == 2:
+    # print("Benign")
+    #else:
+    # print("Malignant")
 
     accuracies.append(accuracy)
 
-print(sum(accuracies)/len(accuracies)) # mean accuracy for 100 runs
+total_accuracy = ((sum(accuracies)) / (runs))
+print(total_accuracy)

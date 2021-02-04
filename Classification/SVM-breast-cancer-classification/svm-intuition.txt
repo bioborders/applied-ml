@@ -1,0 +1,112 @@
+# SVM is a binary classifier (+1 or -1) - classifies one class at a time
+#
+# ** The goal of a support vector machine is to find  the optimal separating
+# ** hyperplane which maximizes the margin of the training data.
+#
+# best separating hyperplane (decision boundary)
+#
+# e.g. a point divides a (1d) line into two parts -> the point is the hyperplane
+#      a line divides a (2d) flat plane into two parts -> the line is the hyperplane
+#      a 2d plane divides a (3d) object into two parts -> the plane is the hyperplane
+#      hence, the hyperplane is a flat, n-1 dimensional subset of that space in an
+#      n-dimensional euclidean space which divides the space into two disconnected parts
+#
+# once the hyperplane is decided, an unknown observation can be separated using the hyperplane
+#
+# here, vectors denoted as x->
+#
+# note: to calculate the magnitude of vector a->, ||a||:
+#       **sqrt of the sum of the squared constituents of the vector, a**
+#
+# e.g. if vector a->, = [3, 4]:
+#                            sqrt(sum((3^2) + (4^2))))
+#                        so: ||a|| = 5
+#
+# dot product between two vectors, a-> and b->
+# a-> = [1,3]
+# b-> = [4,2]
+#
+# e.g. A.B = a[0].b[0] + a[1].b[1]
+#            (1.4) + (3.2) = 10 (scalar value)
+#
+# In a x1-x2 (2d) vector space (feature space), the hyperplane is a line
+#
+# Once a hyperplane has been decided by the svm,
+# W-> denotes the vector to the hyperplane (from origin)
+# u-> denotes the unknown observation, also a vector from the origin
+# and you'll project u-> onto W-> or vice-versa.
+# on which side of the hyperplane is vector u-> ?
+#
+# so:  (u-> . W->) + b
+# where b is the bias
+# if u->.W-> + b >= 0 this is a + sample
+# if u->.W-> + b <= 0 this is a - sample
+# if u->.W-> + b == 0 this is on the decision boundary
+#
+# this dot product operation is performed by the svm classifier
+#
+# y_i (y sub i) = class
+# if class is +ve, y_i = +1
+# if class is -ve, y_i = -1
+#
+# +class = (x->_i . w->) + b = +1
+#          y_i = 1
+# -class = (x->_i . w->) + b = -1
+#          y_i = -1
+#
+# multiplying y_i by the equation
+# In both cases (+class and -class) the equation to derive the support vector =
+#
+#    y_i((x->_i . W->) + b) - 1 = 0
+#
+# we know a vector is a support vector, if its movement in space changed the
+# best separating hyperplane
+#
+#
+# now we have derived the support vectors for both classes
+# SV = support vectors
+# if we take two hyperplanes (one though +SV, other through -SV)
+# the width between them, /2 = the best separating hyperplanes
+# therefore, we want to maximise the width ("road")
+#
+# width = (x->_+ - x->_-) . (W-> / ||W||)
+# x plus minus x negative dotted with vector W divided by magnitude of vector W
+# we want to maximise the variable width
+#
+# as before, for x->_+ and x->_-
+#  y_i((x->_i . W->) + b) - 1 = 0
+# for x->_+ we get 1-b
+# for x->_- we get 1+b
+#
+# width = 2 / ||W->||
+# to maximise width, we want to minimise the magnitude of vector W
+#
+# this equals 1/2 (||W->||)^2 which we want to minimise
+#
+# our constraint = y_i(x->_i.W-> + b)
+
+
+
+# **Lagrange Multipliers**
+# L(W,b) = (1/2 (||W->||)^2) - (sum(alpha_i)[y_i(x->_i.W-> + b)])
+#
+# where alpha_i is the langrangian Multiplier
+# with the contraint = SV
+# to minimise W and maximise b
+# recall that (W.x)+b resembled y = mx + b where b = y-intercept
+# b here is bias
+
+# dL/dW and dL/db
+# dL/dW = W-> - sum(alpha_i * y_i * x->_i)
+# dL/db = -sum(alpha_i * y_i) = 0
+
+# L = sum
+
+# downsides of SVM
+# -> complexity (optimisation problem)
+# -> need all feature sets in memory (same as kNN)
+#  used to mitigate this sequential minimal optimisation (SMO)
+
+# upsides of SVM
+# -> once trained, you don't need old features and classification
+ for any new feature is simply W->x-> + b

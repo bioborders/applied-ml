@@ -28,7 +28,7 @@ accuracies = []
 for i in range(99): # 100 runs
 
     # load data
-    df = pd.read_csv('kNN-breast-cancer-wisconsin/breast-cancer-wisconsin.data')
+    df = pd.read_csv('kNN-breast-cancer-classification/breast-cancer-wisconsin.data')
     df.replace('?', -99999, inplace=True) #replace missing data attributes
     df.drop('id', 1, inplace=True) #drop id column
     #convert all values to floats to avoid attribute being treated as a string

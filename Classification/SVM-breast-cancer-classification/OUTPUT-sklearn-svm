@@ -1,0 +1,8 @@
+Accuracy for 100 runs of scikit-learn's SVM:
+
+0.9481962481962476
+[Finished in 2.101s]
+
+################################################################################
+
+Accuracy for 100 runs of self-made SVM:
