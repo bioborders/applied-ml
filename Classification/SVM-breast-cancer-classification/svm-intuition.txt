@@ -110,3 +110,11 @@
 # upsides of SVM
 # -> once trained, you don't need old features and classification
  for any new feature is simply W->x-> + b
+
+# Optimisation objective is to minimse the (magnitude) ||W->|| and maximise b
+# There are many W's and many b's - hence SVM is an optimisation problem
+
+# SVM = convex optimisation problem
+# CVXOPT -> Convex Optimisation =  Quadratic programming problems and SVM
+# LibSVM -> scikit-learn uses LibSVMM
+#  
