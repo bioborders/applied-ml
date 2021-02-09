@@ -13,4 +13,4 @@
 # W = sum(a_i * y_i * x_i)
 # L = sum(a_i - 1/2 sum(a_i * a_j*y_i*y_j).(x_i . x_j))
 
-# POLYNOMIAL KERNAL
+# POLYNOMIAL KERNAL [see: https://en.wikipedia.org/wiki/Polynomial_kernel]
